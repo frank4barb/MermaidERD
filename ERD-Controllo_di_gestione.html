@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagramma ER Interattivo</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .diagram-container {
+            width: 100%;
+            height: 90vh;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            position: relative;
+        }
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+        button {
+            margin: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button:hover { background: #e0e0e0; }
+    </style>
+</head>
+<body>
+    <h1>Controllo di gestione</h1>
+    <div class="controls">
+        <button onclick="zoomIn()">Zoom +</button>
+        <button onclick="zoomOut()">Zoom -</button>
+        <button onclick="resetZoom()">Reset</button>
+    </div>
+    <div class="diagram-container">
+        <div class="mermaid">
+            erDiagram
+Diagnosi { 
+    key DgTipoDiagnosi FK 
+    string DgClasse 
+    string DgDescrizione 
+    string DgNote 
+    string DgCodice 
+    key DgIdGruppo FK 
+    string DgTipoDrg 
+    string DgTipoIcd9 
+} 
+TipoDiagnosi ||--o{ Diagnosi : "TipoDiagnosi" 
+Diagnosi ||--o{ Diagnosi : "IdGruppo" 
+TipoDiagnosi { 
+    string TdCodice 
+    string TdDescrizione 
+    string TdNote 
+    key TdIdGruppo FK 
+} 
+TipoDiagnosi ||--o{ TipoDiagnosi : "IdGruppo" 
+        </div>
+    </div>
+
+    <script>
+        let scale = 1;
+        let currentX = 0;
+        let currentY = 0;
+        const container = document.querySelector('.diagram-container');
+        
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            er: {
+                diagramPadding: 20,
+                layoutDirection: 'TB',
+                minEntityWidth: 100,
+                minEntityHeight: 75,
+                entityPadding: 15,
+                stroke: 'gray',
+                fill: 'white',
+                fontSize: 12
+            }
+        });
+
+        // Attendi che Mermaid finisca di renderizzare
+        setTimeout(() => {
+            const svg = document.querySelector('.diagram-container svg');
+            if (svg) {
+                makeDraggable(svg);
+                makeZoomable(svg);
+                svg.style.transformOrigin = '0 0';
+            }
+        }, 1000);
+
+        function makeZoomable(element) {
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                
+                // Ottieni la posizione del mouse relativa al container
+                const rect = container.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+
+                // Calcola il fattore di zoom
+                const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
+                const oldScale = scale;
+                scale *= zoomFactor;
+                
+                // Limita il minimo e massimo zoom
+                scale = Math.min(Math.max(0.1, scale), 5);
+
+                // Aggiorna la posizione per mantenere il punto sotto il mouse
+                const scaleChange = scale - oldScale;
+                currentX -= ((mouseX - currentX) * scaleChange) / oldScale;
+                currentY -= ((mouseY - currentY) * scaleChange) / oldScale;
+
+                updateTransform(element);
+            }, { passive: false });
+        }
+
+        function makeDraggable(element) {
+            let pos = { x: 0, y: 0 };
+            let isDragging = false;
+
+            element.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+
+            function dragStart(e) {
+                isDragging = true;
+                pos.x = e.clientX - currentX;
+                pos.y = e.clientY - currentY;
+                e.preventDefault();
+            }
+
+            function drag(e) {
+                if (!isDragging) return;
+                currentX = e.clientX - pos.x;
+                currentY = e.clientY - pos.y;
+                updateTransform(element);
+            }
+
+            function dragEnd() {
+                isDragging = false;
+            }
+        }
+
+        function updateTransform(element) {
+            element.style.transform = `translate(${currentX}px, ${currentY}px) scale(${scale})`;
+        }
+
+        function zoomIn() {
+            scale *= 1.2;
+            updateTransform(document.querySelector('.diagram-container svg'));
+        }
+
+        function zoomOut() {
+            scale *= 0.8;
+            updateTransform(document.querySelector('.diagram-container svg'));
+        }
+
+        function resetZoom() {
+            scale = 1;
+            currentX = 0;
+            currentY = 0;
+            updateTransform(document.querySelector('.diagram-container svg'));
+        }
+    </script>
+</body>
+</html>
