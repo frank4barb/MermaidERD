@@ -12,22 +12,22 @@ Lo schema ERD (Entity-Relationship Diagram) del progetto è stato realizzato uti
 ## Settori del Modello
 Il modello ERD di **MermaidERD** è diviso in settori funzionali, ciascuno dei quali rappresenta un'area specifica del sistema sanitario.
 
-[**### Accoglienza**](https://frank4barb.github.io/MermaidERD/ERD-Accoglienza.html)
+### [**Accoglienza**](https://frank4barb.github.io/MermaidERD/ERD-Accoglienza.html)
 Il settore dell'accoglienza gestisce l'ammissione dei pazienti, la registrazione delle informazioni personali e la gestione delle prime visite.
 
-[**### Attività**](https://frank4barb.github.io/MermaidERD/ERD-Attività.html)
+### [**Attività**](https://frank4barb.github.io/MermaidERD/ERD-Attività.html)
 Questo settore si occupa della pianificazione e gestione delle attività sanitarie, inclusi gli appuntamenti, le prestazioni e le procedure mediche.
 
-[**### Controllo di gestione**](https://frank4barb.github.io/MermaidERD/ERD-Controllo di gestione.html)
+### [**Controllo di gestione**](https://frank4barb.github.io/MermaidERD/ERD-Controllo_di_gestione.html)
 Il controllo di gestione monitora e analizza le performance delle attività sanitarie, gestendo i costi e ottimizzando le risorse.
 
-[**### Dati clinici**](https://frank4barb.github.io/MermaidERD/ERD-Dati clinici.html)
+### [**Dati clinici**](https://frank4barb.github.io/MermaidERD/ERD-Dati_clinici.html)
 Questo settore gestisce la raccolta, l'archiviazione e l'analisi dei dati clinici dei pazienti, inclusi diagnosi, trattamenti e risultati degli esami.
 
-[**### Organizzazione ospedaliera**](https://frank4barb.github.io/MermaidERD/ERD-Organizzazione ospedaliera.html)
+### [**Organizzazione ospedaliera**](https://frank4barb.github.io/MermaidERD/ERD-Organizzazione_ospedaliera.html)
 L'organizzazione ospedaliera si occupa della struttura e della gestione delle unità operative, del personale e delle risorse all'interno dell'ospedale.
 
-[**### Risorse**](https://frank4barb.github.io/MermaidERD/ERD-Risorse.html)
+### [**Risorse**](https://frank4barb.github.io/MermaidERD/ERD-Risorse.html)
 Il settore delle risorse gestisce tutte le risorse necessarie per le attività sanitarie, inclusi materiali, attrezzature, farmaci e personale.
 
 
