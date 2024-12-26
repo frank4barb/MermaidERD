@@ -1,19 +1,16 @@
 # MermaidERD
 
 ## Introduzione
-**MermaidERD** descrive il modello di un sistema ERP (Enterprise Resource Planning) progettato per il settore sanitario. Questo progetto mira a migliorare l'efficienza gestionale delle strutture sanitarie attraverso l'integrazione di vari processi aziendali in un unico sistema coerente. Puoi visualizzare l'intero schema ERD [**qui**](https://frank4barb.github.io/MermaidERD/ERD-Model.html).
+**MermaidERD** descrive il modello di un sistema ERP (Enterprise Resource Planning) progettato per il settore sanitario. Questo modello mira a migliorare l'efficienza gestionale delle strutture sanitarie attraverso l'integrazione di vari processi aziendali in un unico sistema coerente. Puoi visualizzare l'intero schema ERD [**qui**](https://frank4barb.github.io/MermaidERD/ERD-Model.html).
 
 ## Descrizione del Progetto
 **MermaidERD** utilizza uno schema ERD (Entity-Relationship Diagram) per rappresentare le relazioni tra le diverse entità coinvolte nel sistema sanitario. Lo schema è stato realizzato utilizzando Mermaid, uno strumento che permette di creare diagrammi e grafici in modo semplice e intuitivo utilizzando una sintassi markdown.
-
-## Schema ERD
-Lo schema ERD (Entity-Relationship Diagram) del progetto è stato realizzato utilizzando Mermaid. Mermaid è uno strumento che permette di creare diagrammi e grafici in modo semplice e intuitivo utilizzando una sintassi markdown.
 
 ## Settori del Modello
 Il modello ERD di **MermaidERD** è diviso in settori funzionali, ciascuno dei quali rappresenta un'area specifica del sistema sanitario.
 
 ### [**Accoglienza**](https://frank4barb.github.io/MermaidERD/ERD-Accoglienza.html)
-Il settore dell'accoglienza gestisce l'ammissione dei pazienti, la registrazione delle informazioni personali e la gestione delle prime visite.
+Il settore dell'accoglienza gestisce l'ammissione dei pazienti, la registrazione delle informazioni personali e la gestione degli accessi alla struttura.
 
 ### [**Attività**](https://frank4barb.github.io/MermaidERD/ERD-Attività.html)
 Questo settore si occupa della pianificazione e gestione delle attività sanitarie, inclusi gli appuntamenti, le prestazioni e le procedure mediche.
@@ -25,7 +22,7 @@ Il controllo di gestione monitora e analizza le performance delle attività sani
 Questo settore gestisce la raccolta, l'archiviazione e l'analisi dei dati clinici dei pazienti, inclusi diagnosi, trattamenti e risultati degli esami.
 
 ### [**Organizzazione ospedaliera**](https://frank4barb.github.io/MermaidERD/ERD-Organizzazione_ospedaliera.html)
-L'organizzazione ospedaliera si occupa della struttura e della gestione delle unità operative, del personale e delle risorse all'interno dell'ospedale.
+L'organizzazione ospedaliera si occupa della struttura e della gestione delle unità operative, del personale e della logistica all'interno dell'ospedale.
 
 ### [**Risorse**](https://frank4barb.github.io/MermaidERD/ERD-Risorse.html)
 Il settore delle risorse gestisce tutte le risorse necessarie per le attività sanitarie, inclusi materiali, attrezzature, farmaci e personale.
