@@ -1,7 +1,7 @@
 # MermaidERD
 
 ## Introduzione
-**MermaidERD** descrive il modello di un sistema ERP (Enterprise Resource Planning) progettato per il settore sanitario. Questo progetto mira a migliorare l'efficienza gestionale delle strutture sanitarie attraverso l'integrazione di vari processi aziendali in un unico sistema coerente. Puoi visualizzare l'intero schema ERD qui.
+**MermaidERD** descrive il modello di un sistema ERP (Enterprise Resource Planning) progettato per il settore sanitario. Questo progetto mira a migliorare l'efficienza gestionale delle strutture sanitarie attraverso l'integrazione di vari processi aziendali in un unico sistema coerente. Puoi visualizzare l'intero schema ERD [**qui**](https://frank4barb.github.io/MermaidERD/ERmodel.html).
 
 ## Descrizione del Progetto
 **MermaidERD** utilizza uno schema ERD (Entity-Relationship Diagram) per rappresentare le relazioni tra le diverse entità coinvolte nel sistema sanitario. Lo schema è stato realizzato utilizzando Mermaid, uno strumento che permette di creare diagrammi e grafici in modo semplice e intuitivo utilizzando una sintassi markdown.
@@ -61,14 +61,9 @@ erDiagram
     Paziente ||--o{ CartellaClinica : possiede
 ```
 
-## Licenza
-Questo progetto è distribuito sotto la licenza MIT. Vedi il file LICENSE per maggiori dettagli.
+## Librerie utilizzate
 
-## Contatti
-Per qualsiasi domanda o suggerimento, puoi contattarci all'indirizzo email: support@mermaiderd.com.
+- [Mermaid](https://github.com/mermaid-js/mermaid): Strumento JavaScript per creare e modificare diagrammi complessi utilizzando definizioni di testo ispirate a Markdown, aiutando la documentazione a tenere il passo con lo sviluppo.
 
 ---
-
-### Fonti
-- Mermaid Documentation
-- GitHub Repository Setup
+Contribuisci o segnala problemi nel repository!
