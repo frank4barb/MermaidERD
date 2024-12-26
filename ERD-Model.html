@@ -1,0 +1,807 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagramma ER Interattivo</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .diagram-container {
+            width: 100%;
+            height: 90vh;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            position: relative;
+        }
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+        button {
+            margin: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button:hover { background: #e0e0e0; }
+    </style>
+</head>
+<body>
+    <h1>Modello ER - ERP sanitario</h1>
+    <div class="controls">
+        <button onclick="zoomIn()">Zoom +</button>
+        <button onclick="zoomOut()">Zoom -</button>
+        <button onclick="resetZoom()">Reset</button>
+    </div>
+    <div class="diagram-container">
+        <div class="mermaid">
+            erDiagram
+Prestazione { 
+    key PrIdTipoAttivita FK 
+    key PrIdAttivitaRichiesta FK 
+    key PrIdAttivitaEseguita FK 
+    key PrIdGruppo FK 
+    string PrInEvidenza 
+    key PrIdPaziente FK 
+    key PrIdEpisodio FK 
+    string PrClasseEpisodio 
+    key PrTipoEpisodio FK 
+    string PrStatoPrestazione 
+    key PrIdOperatoreRichiedente FK 
+    key PrIdUnitaRichiedente FK 
+    key PrIdPostazioneRichiedente FK 
+    date PrDataRichiesta 
+    time PrOraRichiesta 
+    key PrIdRichiesta FK 
+    date PrDataPropostaEsecuzione 
+    time PrOraPropostaEsecuzione 
+    short PrDurataPrevista 
+    string PrUrgenza 
+    string PrNoteRichiesta 
+    string PrRoutine 
+    date PrDataAppuntamento 
+    time PrOraAppuntamento 
+    string PrNotePianificazione 
+    date PrDataInizioEsecuzione 
+    time PrOraInizioEsecuzione 
+    date PrDataFineEsecuzione 
+    time PrOraFineEsecuzione 
+    date PrDataRefertazione 
+    time PrOraRefertazione 
+    key PrIdOperatoreEsecutore FK 
+    key PrIdUnitaEsecutrice FK 
+    key PrIdPostazioneEsecutrice FK 
+    short PrDurataEffettiva 
+    double PrCostoPrestazione 
+    string PrNoteEsecuzione 
+    key PrIdOperatorePianificatore FK 
+    date PrDataPianificazione 
+    time PrOraPianificazione 
+    string PrNote 
+    string PrMobilita 
+} 
+TipoAttivita ||--|{ Prestazione : "IdTipoAttivita" 
+Attivita ||--|{ Prestazione : "IdAttivitaRichiesta" 
+Attivita ||--o{ Prestazione : "IdAttivitaEseguita" 
+Prestazione ||--o{ Prestazione : "IdGruppo" 
+Paziente ||--o{ Prestazione : "IdPaziente" 
+Episodio ||--o{ Prestazione : "IdEpisodio" 
+TipoEpisodio ||--o{ Prestazione : "TipoEpisodio" 
+Organizzazione ||--o{ Prestazione : "IdOperatoreRichiedente" 
+Organizzazione ||--o{ Prestazione : "IdUnitaRichiedente" 
+Organizzazione ||--o{ Prestazione : "IdPostazioneRichiedente" 
+Richiesta ||--o{ Prestazione : "IdRichiesta" 
+Organizzazione ||--o{ Prestazione : "IdOperatoreEsecutore" 
+Organizzazione ||--o{ Prestazione : "IdUnitaEsecutrice" 
+Organizzazione ||--o{ Prestazione : "IdPostazioneEsecutrice" 
+Organizzazione ||--o{ Prestazione : "IdOperatorePianificatore" 
+Attivita { 
+    string AvCodice 
+    string AvDescrizione 
+    string AvNote 
+    string AvFiltroRegimeErogazione 
+    double AvCostoMedio 
+    key AvIdGruppo FK 
+    string AvAttivitaPreferenziale 
+    short AvDurataValidita 
+    short AvDurataMedia 
+    string AvInEvidenza 
+    key AvIdTipoAttivita FK 
+    string AvRoutine 
+    string AvNoteEstese 
+    string AvAttributi1 
+    string AvAttributi2 
+} 
+Attivita ||--o{ Attivita : "IdGruppo" 
+TipoAttivita ||--|{ Attivita : "IdTipoAttivita" 
+RelPrestazioneCampione { 
+    key PcIdCampione FK 
+    key PcIdPrestazione FK 
+    string PcTipo 
+    string PcNote 
+    key PcIdTipoCampione FK 
+} 
+Campione ||--|{ RelPrestazioneCampione : "IdCampione" 
+Prestazione ||--|{ RelPrestazioneCampione : "IdPrestazione" 
+TipoCampione ||--o{ RelPrestazioneCampione : "IdTipoCampione" 
+RelPrestazioneUsa { 
+    key PuIdPrestazione FK 
+    string PuClasseRisorsa 
+    key PuIdTipoRisorsa FK 
+    key PuIdRisorsaS FK 
+    key PuIdRisorsaM FK 
+    key PuIdRisorsaE FK 
+    key PuIdRisorsaL FK 
+    key PuIdRisorsaD FK 
+    string PuIdRisorsa 
+    short PuSequenza 
+    string PuInEvidenza 
+    date PuDataInizioUso 
+    time PuOraInizioUso 
+    date PuDataFineUso 
+    time PuOraFineUso 
+    double PuQuantitaPrevista 
+    string PuUnitaDiMisuraPrevista 
+    double PuQuantitaUsata 
+    string PuUnitaDiMisuraUsata 
+    double PuQuantitaRestituita 
+    string PuUnitaDiMisuraRestituita 
+    string PuNote 
+    double PuCostoRisorsa 
+    string PuDescrizioneRisorsaUsata 
+} 
+Prestazione ||--|{ RelPrestazioneUsa : "IdPrestazione" 
+TipoRisorsa ||--|{ RelPrestazioneUsa : "IdTipoRisorsa" 
+Personale ||--o{ RelPrestazioneUsa : "IdRisorsaS" 
+Materiale ||--o{ RelPrestazioneUsa : "IdRisorsaM" 
+Attrezzatura ||--o{ RelPrestazioneUsa : "IdRisorsaE" 
+Sala ||--o{ RelPrestazioneUsa : "IdRisorsaL" 
+Farmaco ||--o{ RelPrestazioneUsa : "IdRisorsaD" 
+RelOrganizzazioneContiene { 
+    key OoIdOrganizzazionePadre FK 
+    key OoIdOrganizzazioneFiglio FK 
+    string OoRegolaDiInclusione 
+    string OoNote 
+} 
+Organizzazione ||--|{ RelOrganizzazioneContiene : "IdOrganizzazionePadre" 
+Organizzazione ||--|{ RelOrganizzazioneContiene : "IdOrganizzazioneFiglio" 
+RelAttivitaTipoCampione { 
+    key AcIdAttivita FK 
+    key AcIdTipoCampione FK 
+    string AcNote 
+    string AcTipo 
+    string AcCampionePreferenziale 
+    string AcCampioneSpecifico 
+    string AcRegoleCampionamento 
+} 
+Attivita ||--|{ RelAttivitaTipoCampione : "IdAttivita" 
+TipoCampione ||--|{ RelAttivitaTipoCampione : "IdTipoCampione" 
+TipoEpisodio { 
+    string TeCodice 
+    string TeClasse 
+    string TeDescrizione 
+    string TeNote 
+} 
+RelAttivitaRichiestaDa { 
+    key ArIdAttivita FK 
+    key ArIdIstituto FK 
+    key ArIdUnita FK 
+    key ArIdPostazione FK 
+    key ArIdOperatore FK 
+    string ArNote 
+    string ArRichiestaFrequente 
+} 
+Attivita ||--o{ RelAttivitaRichiestaDa : "IdAttivita" 
+Organizzazione ||--o{ RelAttivitaRichiestaDa : "IdIstituto" 
+Organizzazione ||--o{ RelAttivitaRichiestaDa : "IdUnita" 
+Organizzazione ||--o{ RelAttivitaRichiestaDa : "IdPostazione" 
+Organizzazione ||--o{ RelAttivitaRichiestaDa : "IdOperatore" 
+RelAttivitaUsa { 
+    key AuIdAttivita FK 
+    string AuClasseRisorsa 
+    key AuIdTipoRisorsa FK 
+    key AuIdRisorsaS FK 
+    key AuIdRisorsaM FK 
+    key AuIdRisorsaE FK 
+    key AuIdRisorsaL FK 
+    key AuIdRisorsaD FK 
+    string AuIdRisorsa 
+    short AuSequenza 
+    double AuQuantitaMediaUsata 
+    double AuQuantitaExtra 
+    string AuUnitaDiMisura 
+    string AuNote 
+    double AuCostoMedio 
+    string AuDescrizioneRisorsaUsata 
+    key AuIdGruppo FK 
+} 
+Attivita ||--|{ RelAttivitaUsa : "IdAttivita" 
+TipoRisorsa ||--|{ RelAttivitaUsa : "IdTipoRisorsa" 
+Personale ||--o{ RelAttivitaUsa : "IdRisorsaS" 
+Materiale ||--o{ RelAttivitaUsa : "IdRisorsaM" 
+Attrezzatura ||--o{ RelAttivitaUsa : "IdRisorsaE" 
+Sala ||--o{ RelAttivitaUsa : "IdRisorsaL" 
+Farmaco ||--o{ RelAttivitaUsa : "IdRisorsaD" 
+RelAttivitaUsa ||--o{ RelAttivitaUsa : "IdGruppo" 
+Campione { 
+    key CpIdTipoCampione FK 
+    string CpDescrizione 
+    string CpCodiceUnivoco 
+    date CpDataPrelievo 
+    time CpOraPrelievo 
+    string CpNote 
+    key CpIdEpisodio FK 
+    string CpIdPaziente 
+    string CpCodiceAssoluto 
+    string CpStatoCampione 
+    key CpIdPosizioneAttuale FK 
+    string CpDescPosizioneAttuale 
+    string CpDataCambiamentoStato 
+    string CpOraCambiamentoStato 
+    string CpNoteCambiamentoStato 
+} 
+TipoCampione ||--|{ Campione : "IdTipoCampione" 
+Episodio ||--|{ Campione : "IdEpisodio" 
+Organizzazione ||--o{ Campione : "IdPosizioneAttuale" 
+RelAttivitaErogataDa { 
+    key AeIdAttivita FK 
+    key AeIdUnita FK 
+    string AeNote 
+    string AeModalitaDiPianificazione 
+    string AeErogazioneFrequente 
+    string AeAttributi 
+    string AeFiltroRegimeErogazione 
+} 
+Attivita ||--|{ RelAttivitaErogataDa : "IdAttivita" 
+Organizzazione ||--|{ RelAttivitaErogataDa : "IdUnita" 
+TipoAttivita { 
+    string TaCodice 
+    string TaDescrizione 
+    string TaNote 
+    key TaIdGruppo FK 
+} 
+TipoAttivita ||--o{ TipoAttivita : "IdGruppo" 
+TipoOrganizzazione { 
+    string TzCodice 
+    string TzDescrizione 
+    string TzNote 
+    key TzGruppo FK 
+    short TzSequenza 
+} 
+TipoOrganizzazione ||--o{ TipoOrganizzazione : "Gruppo" 
+TipoCampione { 
+    string TpCodice 
+    string TpDescrizione 
+    string TpNote 
+    string TpContesto 
+    string TpContenitore 
+    string TpAttributi 
+} 
+RelAttivitaContiene { 
+    key AaIdAttivitaPadre FK 
+    key AaIdAttivitaFiglio FK 
+    short AaSequenza 
+    string AaNote 
+} 
+Attivita ||--o{ RelAttivitaContiene : "IdAttivitaPadre" 
+Attivita ||--o{ RelAttivitaContiene : "IdAttivitaFiglio" 
+Comune { 
+    string CmCodice 
+    string CmNome 
+    string CmCodIstat 
+    string CmNote 
+} 
+Episodio { 
+    string EpCodEpisodio 
+    key EpIdPaziente FK 
+    string EpSesso 
+    string EpClasseEpisodio 
+    key EpIdTipoEpisodio FK 
+    string EpStatoEpisodio 
+    key EpIdUnitaIngresso FK 
+    date EpDataInizio 
+    time EpOraInizio 
+    date EpDataFine 
+    time EpOraFine 
+    string EpCartellaPs 
+    key EpIdCorsia FK 
+    key EpIdReparto FK 
+    string EpLetto 
+    string EpStanza 
+    key EpIdDiagnosiAmmissione FK 
+    key EpIdDiagnosiDimissione FK 
+    string EpNote 
+    key EpIdAttoAmministrativo FK 
+    date EpDataInizioLa 
+    time EpOraInizioLa 
+    key EpIdRepartoLa FK 
+    date EpDataInizioPreh 
+    time EpOraInizioPreh 
+    key EpIdRepartoPreh FK 
+    string EpFaseEpisodio 
+} 
+Paziente ||--|{ Episodio : "IdPaziente" 
+TipoEpisodio ||--|{ Episodio : "IdTipoEpisodio" 
+Organizzazione ||--o{ Episodio : "IdUnitaIngresso" 
+Organizzazione ||--o{ Episodio : "IdCorsia" 
+Organizzazione ||--o{ Episodio : "IdReparto" 
+Diagnosi ||--o{ Episodio : "IdDiagnosiAmmissione" 
+Diagnosi ||--o{ Episodio : "IdDiagnosiDimissione" 
+Prestazione ||--o{ Episodio : "IdAttoAmministrativo" 
+Organizzazione ||--o{ Episodio : "IdRepartoLa" 
+Organizzazione ||--o{ Episodio : "IdRepartoPreh" 
+Nazione { 
+    string NzCodice 
+    string NzNome 
+    string NzCodIstat 
+    string NzNote 
+} 
+Distretto { 
+    string DiCodice 
+    string DiNome 
+    string DiNote 
+    key DiIdComune FK 
+} 
+Comune ||--o{ Distretto : "IdComune" 
+Paziente { 
+    string PaCodFiscale 
+    string PaCodSanitario 
+    string PaNome 
+    string PaCognome 
+    string PaSesso 
+    date PaDataNascita 
+    time PaOraNascita 
+    key PaIdComuneNascita FK 
+    key PaIdNazioneNascita FK 
+    key PaIdCittadinanza FK 
+    string PaIndirizzoRes 
+    string PaNumCivicoRes 
+    string PaCapRes 
+    key PaIdComuneRes FK 
+    key PaIdDistrettoRes FK 
+    key PaIdNazioneDom FK 
+    string PaMail 
+    string PaIndirizzoDom 
+    string PaNumCivicoDom 
+    string PaCapDom 
+    key PaIdComuneDom FK 
+    string PaTelefono 
+    string PaCellulare 
+    key PaIdDistrettoDom FK 
+    string PaNote 
+    date PaDataDecesso 
+    time PaOraDecesso 
+    key PaIdNazioneRes FK 
+} 
+Comune ||--o{ Paziente : "IdComuneNascita" 
+Nazione ||--o{ Paziente : "IdNazioneNascita" 
+Nazione ||--o{ Paziente : "IdCittadinanza" 
+Comune ||--o{ Paziente : "IdComuneRes" 
+Distretto ||--o{ Paziente : "IdDistrettoRes" 
+Nazione ||--o{ Paziente : "IdNazioneDom" 
+Comune ||--o{ Paziente : "IdComuneDom" 
+Distretto ||--o{ Paziente : "IdDistrettoDom" 
+Nazione ||--o{ Paziente : "IdNazioneRes" 
+CategoriaDatoClinico { 
+    string CcCodice 
+    string CcDescrizione 
+    string CcNote 
+    key CcIdGruppo FK 
+} 
+CategoriaDatoClinico ||--o{ CategoriaDatoClinico : "IdGruppo" 
+RisultatoEsame { 
+    string ReClasse 
+    key ReIdPaziente FK 
+    key ReIdEpisodio FK 
+    key ReIdTipoDatoClinico FK 
+    key ReIdGruppoDatoClinico FK 
+    double ReValoreMinimo 
+    double ReValoreMassimo 
+    string ReValoreScelta 
+    string ReValoreTesto 
+    string ReNote 
+    string ReCodiceReferto 
+    date ReDataAcquisizione 
+    time ReOraAcquisizione 
+    string ReStatoDatoClinico 
+    date ReDataValidazione 
+    time ReOraValidazione 
+    short ReSequenza 
+} 
+Paziente ||--|{ RisultatoEsame : "IdPaziente" 
+CategoriaDatoClinico ||--o{ RisultatoEsame : "IdEpisodio" 
+Episodio ||--o{ RisultatoEsame : "IdTipoDatoClinico" 
+TipoDatoClinico ||--|{ RisultatoEsame : "IdGruppoDatoClinico" 
+TipoDatoClinico { 
+    string TcCodice 
+    string TcDescrizione 
+    string TcNote 
+    key TcIdCategoriaDatoClinico FK 
+    string TcUnitaDiMisura 
+    key TcIdGruppo FK 
+    short TcSequenza 
+    string TcAttributi1 
+    string TcAttributi2 
+} 
+CategoriaDatoClinico ||--o{ TipoDatoClinico : "IdCategoriaDatoClinico" 
+TipoDatoClinico ||--o{ TipoDatoClinico : "IdGruppo" 
+StatoSalute { 
+    string SsClasse 
+    key SsIdPaziente FK 
+    key SsIdEpisodio FK 
+    key SsIdTipoDatoClinico FK 
+    key SsIdGruppoDatoClinico FK 
+    double SsValoreMinimo 
+    double SsValoreMassimo 
+    string SsValoreScelta 
+    string SsValoreTesto 
+    string SsNote 
+    string SsCodiceReferto 
+    date SsDataAcquisizione 
+    time SsOraAcquisizione 
+    string SsStatoDatoClinico 
+    date SsDataValidazione 
+    time SsOraValidazione 
+    short SsSequenza 
+} 
+Paziente ||--|{ StatoSalute : "IdPaziente" 
+Episodio ||--o{ StatoSalute : "IdEpisodio" 
+TipoDatoClinico ||--|{ StatoSalute : "IdTipoDatoClinico" 
+CategoriaDatoClinico ||--o{ StatoSalute : "IdGruppoDatoClinico" 
+RelPrestazioneDatoClinico { 
+    string PdClasseDatoClinico 
+    key PdIdDatoClinico1 FK 
+    key PdIdDatoClinico2 FK 
+    key PdIdDatoClinico3 FK 
+    key PdIdDatoClinico4 FK 
+    string PdIdDatoClinico 
+    key PdIdPrestazione FK 
+    string PdTipoRelazione 
+    string PdNote 
+} 
+ParametroVitale ||--|{ RelPrestazioneDatoClinico : "IdDatoClinico1" 
+RisultatoEsame ||--|{ RelPrestazioneDatoClinico : "IdDatoClinico2" 
+StatoSalute ||--|{ RelPrestazioneDatoClinico : "IdDatoClinico3" 
+DocumentoClinico ||--|{ RelPrestazioneDatoClinico : "IdDatoClinico4" 
+Prestazione ||--o{ RelPrestazioneDatoClinico : "IdPrestazione" 
+DocumentoClinico { 
+    string DcClasse 
+    key DcIdPaziente FK 
+    key DcIdEpisodio FK 
+    key DcIdTipoDatoClinico FK 
+    key DcIdGruppoDatoClinico FK 
+    double DcValoreMinimo 
+    double DcValoreMassimo 
+    string DcValoreScelta 
+    string DcValoreTesto 
+    string DcNote 
+    string DcCodiceReferto 
+    date DcDataAcquisizione 
+    time DcOraAcquisizione 
+    string DcStatoDatoClinico 
+    date DcDataValidazione 
+    time DcOraValidazione 
+    short DcSequenza 
+} 
+Paziente ||--|{ DocumentoClinico : "IdPaziente" 
+Episodio ||--o{ DocumentoClinico : "IdEpisodio" 
+TipoDatoClinico ||--|{ DocumentoClinico : "IdTipoDatoClinico" 
+CategoriaDatoClinico ||--o{ DocumentoClinico : "IdGruppoDatoClinico" 
+ParametroVitale { 
+    string PvClasse 
+    key PvIdPaziente FK 
+    key PvIdEpisodio FK 
+    key PvIdTipoDatoClinico FK 
+    key PvIdGruppoDatoClinico FK 
+    double PvValoreMinimo 
+    double PvValoreMassimo 
+    string PvValoreScelta 
+    string PvValoreTesto 
+    string PvNote 
+    string PvCodiceReferto 
+    date PvDataAcquisizione 
+    time PvOraAcquisizione 
+    string PvStatoDatoClinico 
+    date PvDataValidazione 
+    time PvOraValidazione 
+    short PvSequenza 
+} 
+Paziente ||--|{ ParametroVitale : "IdPaziente" 
+Episodio ||--o{ ParametroVitale : "IdEpisodio" 
+TipoDatoClinico ||--|{ ParametroVitale : "IdTipoDatoClinico" 
+CategoriaDatoClinico ||--o{ ParametroVitale : "IdGruppoDatoClinico" 
+Richiesta { 
+    key RiIdUnitaRichiedente FK 
+    key RiIdPostazioneRichiedente FK 
+    key RiIdIstitutoRichiedente FK 
+    key RiIdOperatoreRichiedente FK 
+    date RiDataRichiesta 
+    time RiOraRichiesta 
+    string RiUrgenza 
+    string RiOggetto 
+    string RiStatoRichiesta 
+    string RiClasseRichiesta 
+    key RiIdTipoRichiesta FK 
+    key RiIdPaziente FK 
+    key RiIdEpisodio FK 
+} 
+Organizzazione ||--o{ Richiesta : "IdUnitaRichiedente" 
+Organizzazione ||--o{ Richiesta : "IdPostazioneRichiedente" 
+Organizzazione ||--o{ Richiesta : "IdIstitutoRichiedente" 
+Organizzazione ||--o{ Richiesta : "IdOperatoreRichiedente" 
+TipoRichiesta ||--|{ Richiesta : "IdTipoRichiesta" 
+Paziente ||--o{ Richiesta : "IdPaziente" 
+Episodio ||--o{ Richiesta : "IdEpisodio" 
+Organizzazione { 
+    string OrClasseAssistenza 
+    string OrCodice 
+    string OrDescrizione 
+    string OrNote 
+    string OrEmail 
+    key OrTipoAssistenza FK 
+    string OrTelefono 
+    key OrIdPersonale FK 
+    key OrIdIstituto FK 
+    key OrIdUnita FK 
+    key OrIdPostazione FK 
+    string OrPwdCrypt 
+    string OrAttivo 
+    string OrIdentificativo 
+} 
+TipoOrganizzazione ||--|{ Organizzazione : "TipoAssistenza" 
+Personale ||--o{ Organizzazione : "IdPersonale" 
+Organizzazione ||--o{ Organizzazione : "IdIstituto" 
+Organizzazione ||--o{ Organizzazione : "IdUnita" 
+Organizzazione ||--o{ Organizzazione : "IdPostazione" 
+TipoRichiesta { 
+    string TiCodice 
+    string TiGruppo 
+    string TiDescrizione 
+    string TiNote 
+} 
+Farmaco { 
+    string FmCodice 
+    string FmClasseRisorsa 
+    string FmDescrizione 
+    key FmIdTipoRisorsa FK 
+    double FmCostoUnitarioUso 
+    string FmMisuraUnitariaUso 
+    string FmNote 
+    string FmDisponibilita 
+    short FmQuantitaDisponibile 
+    short FmQuantitaMinimaMagazzino 
+    short FmUsoMedioGiornaliero 
+    date FmDataUltimoOrdine 
+    short FmQuantitaUltimoOrdine 
+    date FmDataProssimoOrdine 
+    short FmQuantitaMediaOrdine 
+    string FmRiferimentiFornitore 
+    string FmCodiceNazionale 
+    string FmCodiceAic 
+    date FmDataInizioAutorizzazione 
+    date FmDataFineAutorizzazione 
+} 
+TipoRisorsa ||--|{ Farmaco : "IdTipoRisorsa" 
+Attrezzatura { 
+    string AtCodice 
+    string AtClasseRisorsa 
+    string AtDescrizione 
+    key AtIdTipoRisorsa FK 
+    double AtCostoUnitarioUso 
+    string AtMisuraUnitariaUso 
+    string AtNote 
+    string AtDisponibilita 
+    string AtTelefonoFornitore 
+    string AtNumeroSeriale 
+    string AtRiferimentiAssistenza 
+    string AtTelefonoAssistenza 
+    date AtDataUltimaManutenzione 
+    short AtFrequenzaManutenzione 
+    double AtUsoMedioGiornaliero 
+    date AtDataProssimaManutenzione 
+} 
+TipoRisorsa ||--|{ Attrezzatura : "IdTipoRisorsa" 
+Sala { 
+    string SaCodice 
+    string SaClasseRisorsa 
+    key SaIdTipoRisorsa FK 
+    string SaDescrizione 
+    double SaCostoUnitarioUso 
+    string SaMisuraUnitariaUso 
+    string SaNote 
+    string SaDisponibilita 
+    string SaTelefonoFornitore 
+    date SaDataUltimaManutenzione 
+    short SaFrequenzaManutenzione 
+    double SaUsoMedioGiornaliero 
+    date SaDataProssimaManutenzione 
+} 
+TipoRisorsa ||--|{ Sala : "IdTipoRisorsa" 
+Materiale { 
+    string MtCodice 
+    string MtClasseRisorsa 
+    string MtDescrizione 
+    key MtIdTipoRisorsa FK 
+    double MtCostoUnitarioUso 
+    string MtMisuraUnitariaUso 
+    string MtNote 
+    string MtDisponibilita 
+    string MtTelefonoFornitore 
+    double MtQuantitaDisponibile 
+    double MtQuantitaMinimaMagazzino 
+    double MtUsoMedioGiornaliero 
+    date MtDataUltimoOrdine 
+    double MtQuantitaUltimoOrdine 
+    date MtDataProssimoOrdine 
+    short MtQuantitaMediaOrdine 
+    string MtCodiceNazionale 
+} 
+TipoRisorsa ||--|{ Materiale : "IdTipoRisorsa" 
+Personale { 
+    string PeCodice 
+    string PeClasseRisorsa 
+    string PeDescrizione 
+    key PeIdTipoRisorsa FK 
+    double PeCostoUnitarioUso 
+    string PeMisuraUnitariaUso 
+    string PeNote 
+    string PeDisponibilita 
+    string PeTelefono 
+    string PeCellulare 
+    string PeNome 
+    string PeCognome 
+    string PeCodiceFiscale 
+    string PeEmail 
+} 
+TipoRisorsa ||--|{ Personale : "IdTipoRisorsa" 
+TipoRisorsa { 
+    string TsCodice 
+    string TsClasseRisorsa 
+    key TsIdGruppo FK 
+    string TsDescrizione 
+    string TsNote 
+    string TsUnitaDiMisura 
+} 
+TipoRisorsa ||--o{ TipoRisorsa : "IdGruppo" 
+Diagnosi { 
+    key DgTipoDiagnosi FK 
+    string DgClasse 
+    string DgDescrizione 
+    string DgNote 
+    string DgCodice 
+    key DgIdGruppo FK 
+    string DgTipoDrg 
+    string DgTipoIcd9 
+} 
+TipoDiagnosi ||--o{ Diagnosi : "TipoDiagnosi" 
+Diagnosi ||--o{ Diagnosi : "IdGruppo" 
+TipoDiagnosi { 
+    string TdCodice 
+    string TdDescrizione 
+    string TdNote 
+    key TdIdGruppo FK 
+} 
+TipoDiagnosi ||--o{ TipoDiagnosi : "IdGruppo" 
+        </div>
+    </div>
+
+    <script>
+        let scale = 1;
+        let currentX = 0;
+        let currentY = 0;
+        const container = document.querySelector('.diagram-container');
+        
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            er: {
+                diagramPadding: 20,
+                layoutDirection: 'TB',
+                minEntityWidth: 100,
+                minEntityHeight: 75,
+                entityPadding: 15,
+                stroke: 'gray',
+                fill: 'white',
+                fontSize: 12
+            }
+        });
+
+        // Attendi che Mermaid finisca di renderizzare
+        setTimeout(() => {
+            const svg = document.querySelector('.diagram-container svg');
+            if (svg) {
+                makeDraggable(svg);
+                makeZoomable(svg);
+                svg.style.transformOrigin = '0 0';
+            }
+        }, 1000);
+
+        function makeZoomable(element) {
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                
+                // Ottieni la posizione del mouse relativa al container
+                const rect = container.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+
+                // Calcola il fattore di zoom
+                const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
+                const oldScale = scale;
+                scale *= zoomFactor;
+                
+                // Limita il minimo e massimo zoom
+                scale = Math.min(Math.max(0.1, scale), 5);
+
+                // Aggiorna la posizione per mantenere il punto sotto il mouse
+                const scaleChange = scale - oldScale;
+                currentX -= ((mouseX - currentX) * scaleChange) / oldScale;
+                currentY -= ((mouseY - currentY) * scaleChange) / oldScale;
+
+                updateTransform(element);
+            }, { passive: false });
+        }
+
+        function makeDraggable(element) {
+            let pos = { x: 0, y: 0 };
+            let isDragging = false;
+
+            element.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+
+            function dragStart(e) {
+                isDragging = true;
+                pos.x = e.clientX - currentX;
+                pos.y = e.clientY - currentY;
+                e.preventDefault();
+            }
+
+            function drag(e) {
+                if (!isDragging) return;
+                currentX = e.clientX - pos.x;
+                currentY = e.clientY - pos.y;
+                updateTransform(element);
+            }
+
+            function dragEnd() {
+                isDragging = false;
+            }
+        }
+
+        function updateTransform(element) {
+            element.style.transform = `translate(${currentX}px, ${currentY}px) scale(${scale})`;
+        }
+
+        function zoomIn() {
+            scale *= 1.2;
+            updateTransform(document.querySelector('.diagram-container svg'));
+        }
+
+        function zoomOut() {
+            scale *= 0.8;
+            updateTransform(document.querySelector('.diagram-container svg'));
+        }
+
+        function resetZoom() {
+            scale = 1;
+            currentX = 0;
+            currentY = 0;
+            updateTransform(document.querySelector('.diagram-container svg'));
+        }
+    </script>
+</body>
+</html>
